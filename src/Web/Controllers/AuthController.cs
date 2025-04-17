@@ -6,11 +6,13 @@ namespace Web.Controllers;
 [ApiController]
 public class AuthController : ControllerBase
 {
+    [HttpPost]
     public IActionResult Register()
     {
         return Ok();
     }
 
+    [HttpPost]
     public IActionResult Login()
     {
         return Ok();
