@@ -18,8 +18,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Login registry
-        run: docker login ${{ vars.DOCKER_REGISTRY }} -u ${{ secrets.DOCKER_REGISTRY_USERNAME }} -p ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+      - name: Log into docker registry ${{ env.DOCKER_REGISTRY }}
+        uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d # v3.0.0
+        with:
+          registry: ${{ env.DOCKER_REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
     
       - name: Checkout
         uses: actions/checkout@v4.1.2
