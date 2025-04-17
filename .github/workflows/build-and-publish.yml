@@ -32,4 +32,4 @@ jobs:
         run: docker build -t ${{ env.REGISTRY_IMAGE_NAME }} .
 
       - name: Push image to registry
-        run: docker push $REGISTRY_IMAGE_NAME
+        run: docker push ${{ env.REGISTRY_IMAGE_NAME }}
