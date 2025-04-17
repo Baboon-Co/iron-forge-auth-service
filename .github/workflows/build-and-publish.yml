@@ -11,7 +11,7 @@ on:
 env:
   DOCKER_REGISTRY: ghcr.io
   IMAGE_NAME: baboon-co/iron-forge-auth
-  REGISTRY_IMAGE_NAME: ${{ env.DOCKER_REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+  REGISTRY_IMAGE_NAME: $DOCKER_REGISTRY/$IMAGE_NAME:latest
 
 jobs:
   build-and-publish:
