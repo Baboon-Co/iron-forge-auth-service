@@ -1,12 +1,12 @@
 name: Build and Publish
 
-on: 
+on:
   push:
     branches:
-    - master
+      - master
   pull_request:
     branches:
-    - master
+      - master
 
 env:
   DOCKER_REGISTRY: ghcr.io
@@ -24,12 +24,12 @@ jobs:
           registry: ${{ env.DOCKER_REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-    
+
       - name: Checkout
         uses: actions/checkout@v4.1.2
-    
+
       - name: Build image
-        run: docker build -t ${{ env.REGISTRY_IMAGE_NAME }} .
+        run: docker build --build-arg NUGET_USERNAME=${{ github.actor }} --build-arg NUGET_PASSWORD=${{ secrets.GITHUB_TOKEN }} -t ${{ env.REGISTRY_IMAGE_NAME }} .
 
       - name: Push image to registry
         run: docker push ${{ env.REGISTRY_IMAGE_NAME }}

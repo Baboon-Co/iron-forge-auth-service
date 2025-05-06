@@ -6,6 +6,9 @@ EXPOSE 8081
 
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
+ARG NUGET_USERNAME
+ARG NUGET_PASSWORD
+RUN dotnet nuget add source "https://nuget.pkg.github.com/baboon-co/index.json" -n "GitHubPackages" --username $NUGET_USERNAME --password $NUGET_PASSWORD
 WORKDIR /src
 COPY ["src/Api/Api.csproj", "src/Api/"]
 RUN dotnet restore "src/Api/Api.csproj"
