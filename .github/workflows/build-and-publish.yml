@@ -18,6 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       packages: read
+      contents: read
 
     steps:
       - name: Log into docker registry ${{ env.DOCKER_REGISTRY }}
