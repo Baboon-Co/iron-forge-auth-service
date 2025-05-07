@@ -86,8 +86,8 @@ public static class IdentityErrorsExtensions
 
     public static Result ToFailedResult(this IdentityResult identityResult)
     {
-        if (!identityResult.Succeeded)
-            throw new InvalidOperationException("IdentityResult is not succeeded.");
+        if (identityResult.Succeeded)
+            throw new InvalidOperationException("IdentityResult is not failed.");
 
         var errors = new List<Error>
         {
