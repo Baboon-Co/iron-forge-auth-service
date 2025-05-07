@@ -16,6 +16,8 @@ env:
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
+    permissions:
+      packages: read
 
     steps:
       - name: Log into docker registry ${{ env.DOCKER_REGISTRY }}
