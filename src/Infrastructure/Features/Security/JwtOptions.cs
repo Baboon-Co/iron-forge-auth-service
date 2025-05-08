@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.Hosting;
-using Shared.Options.Abstractions;
+using Utility.Configuration.Options.Abstractions;
 
 namespace Infrastructure.Features.Security;
 

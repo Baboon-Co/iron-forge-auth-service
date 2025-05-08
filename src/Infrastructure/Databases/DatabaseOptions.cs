@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using Shared.Options.Abstractions;
+using Utility.Configuration.Options.Abstractions;
 
 namespace Infrastructure.Databases;
 

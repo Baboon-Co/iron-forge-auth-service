@@ -1,11 +1,11 @@
-﻿using Api.Extensions;
-using Application.Features.Users.Abstractions;
+﻿using Application.Features.Users.Abstractions;
 using Application.Features.Users.Login;
 using Application.Features.Users.RefreshTokens;
 using Application.Features.Users.Register;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using IronForge.Contracts.AuthService;
+using Utility.Grpc;
 
 namespace Api.GrpcServices;
 
@@ -15,7 +15,7 @@ public class AuthService(
 ) : Auth.AuthBase
 {
     public override async Task<RegisterResponse> Register(
-        RegisterRequest request, 
+        RegisterRequest request,
         ServerCallContext context)
     {
         var registerDto = new RegisterDto(request.Login, request.Password);
@@ -39,7 +39,7 @@ public class AuthService(
     }
 
     public override async Task<LoginResponse> Login(
-        LoginRequest request, 
+        LoginRequest request,
         ServerCallContext context)
     {
         var loginDto = new LoginDto(request.Login, request.Password);

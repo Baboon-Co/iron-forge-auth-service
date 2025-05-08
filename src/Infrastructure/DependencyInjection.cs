@@ -8,7 +8,7 @@ using Infrastructure.Features.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Shared.Options;
+using Utility.Configuration.Options;
 
 namespace Infrastructure;
 
