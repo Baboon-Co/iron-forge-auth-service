@@ -7,11 +7,11 @@ using Grpc.Core;
 using IronForge.Contracts.AuthService;
 using Utility.Grpc;
 
-namespace Api.GrpcServices;
+namespace Api.Controllers.GrpcControllers;
 
-public class AuthService(
+public class AuthGrpcController(
     IUserService userService,
-    ILogger<AuthService> logger
+    ILogger<AuthGrpcController> logger
 ) : Auth.AuthBase
 {
     public override async Task<RegisterResponse> Register(

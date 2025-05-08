@@ -1,5 +1,5 @@
 using Api;
-using Api.GrpcServices;
+using Api.Controllers.GrpcControllers;
 using Application;
 using Infrastructure;
 using Infrastructure.Databases;
@@ -21,5 +21,5 @@ using (var scope = app.Services.CreateScope())
     db.Database.Migrate();
 }
 
-app.MapGrpcService<AuthService>();
+app.MapGrpcService<AuthGrpcController>();
 app.Run();
