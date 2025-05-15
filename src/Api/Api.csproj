@@ -9,8 +9,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="auth-service.server" Version="0.0.8" />
         <PackageReference Include="Baboon-Co.Utility.Grpc" Version="0.0.2" />
+        <PackageReference Include="BaboonCo.AuthService.Server" Version="0.0.3" />
         <PackageReference Include="Grpc.StatusProto" Version="2.71.0" />
         <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.1" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.4">
