@@ -21,21 +21,23 @@ public class AuthGrpcController(
         var registerDto = new RegisterDto(request.Login, request.Password);
         var registerResult = await userService.RegisterAsync(registerDto);
 
-        if (registerResult.IsFailed)
-            throw GrpcHelper.CreateRpcException(registerResult.ToResult());
-
-        logger.LogInformation("User \"{Username}\" registered.", request.Login);
-
-        var userId = registerResult.Value.UserId.ToString();
-        var authTokens = registerResult.Value.AuthTokens;
-        return new RegisterResponse
+        if (registerResult.IsSuccess)
         {
-            UserId = userId,
-            AccessToken = authTokens.AccessToken,
-            AccessTokenExpiration = Timestamp.FromDateTime(authTokens.AccessTokenExpiration),
-            RefreshToken = authTokens.RefreshToken,
-            RefreshTokenExpiration = Timestamp.FromDateTime(authTokens.RefreshTokenExpiration)
-        };
+            logger.LogInformation("User \"{Username}\" registered.", request.Login);
+         
+            var userId = registerResult.Value.UserId.ToString();
+            var authTokens = registerResult.Value.AuthTokens;
+            return new RegisterResponse
+            {
+                UserId = userId,
+                AccessToken = authTokens.AccessToken,
+                AccessTokenExpiration = Timestamp.FromDateTime(authTokens.AccessTokenExpiration),
+                RefreshToken = authTokens.RefreshToken,
+                RefreshTokenExpiration = Timestamp.FromDateTime(authTokens.RefreshTokenExpiration)
+            };
+        }
+
+        throw GrpcHelper.CreateRpcException(registerResult.ToResult());
     }
 
     public override async Task<LoginResponse> Login(
@@ -44,24 +46,23 @@ public class AuthGrpcController(
     {
         var loginDto = new LoginDto(request.Login, request.Password);
         var loginResult = await userService.Login(loginDto);
-        if (loginResult.IsFailed)
+        if (loginResult.IsSuccess)
         {
-            throw GrpcHelper.CreateRpcException(loginResult.ToResult());
+            logger.LogInformation("User \"{Username}\" logged in.", request.Login);
+
+            var userId = loginResult.Value.UserId.ToString();
+            var authTokens = loginResult.Value.AuthTokens;
+            return new LoginResponse
+            {
+                UserId = userId,
+                AccessToken = authTokens.AccessToken,
+                AccessTokenExpiration = Timestamp.FromDateTime(authTokens.AccessTokenExpiration),
+                RefreshToken = authTokens.RefreshToken,
+                RefreshTokenExpiration = Timestamp.FromDateTime(authTokens.RefreshTokenExpiration)
+            };
         }
 
-        logger.LogInformation("User \"{Username}\" logged in.", request.Login);
-
-        var userId = loginResult.Value.UserId.ToString();
-        var authTokens = loginResult.Value.AuthTokens;
-        var response = new LoginResponse
-        {
-            UserId = userId,
-            AccessToken = authTokens.AccessToken,
-            AccessTokenExpiration = Timestamp.FromDateTime(authTokens.AccessTokenExpiration),
-            RefreshToken = authTokens.RefreshToken,
-            RefreshTokenExpiration = Timestamp.FromDateTime(authTokens.RefreshTokenExpiration)
-        };
-        return response;
+        throw GrpcHelper.CreateRpcException(loginResult.ToResult());
     }
 
     public override async Task<RefreshTokensResponse> RefreshTokens(
@@ -70,8 +71,8 @@ public class AuthGrpcController(
     {
         var refreshTokensDto = new RefreshTokensDto(Guid.Parse(request.UserId), request.RefreshToken);
         var refreshTokensResult = await userService.RefreshTokens(refreshTokensDto);
+ 
         var authTokens = refreshTokensResult.Value;
-
         var response = new RefreshTokensResponse
         {
             AccessToken = authTokens.AccessToken,
