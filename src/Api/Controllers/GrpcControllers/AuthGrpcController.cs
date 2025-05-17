@@ -24,7 +24,7 @@ public class AuthGrpcController(
         if (registerResult.IsSuccess)
         {
             logger.LogInformation("User \"{Username}\" registered.", request.Login);
-         
+
             var userId = registerResult.Value.UserId.ToString();
             var authTokens = registerResult.Value.AuthTokens;
             return new RegisterResponse
@@ -37,7 +37,7 @@ public class AuthGrpcController(
             };
         }
 
-        throw GrpcHelper.CreateRpcException(registerResult.ToResult());
+        throw GrpcHelper.CreateRpcException(registerResult);
     }
 
     public override async Task<LoginResponse> Login(
@@ -62,7 +62,7 @@ public class AuthGrpcController(
             };
         }
 
-        throw GrpcHelper.CreateRpcException(loginResult.ToResult());
+        throw GrpcHelper.CreateRpcException(loginResult);
     }
 
     public override async Task<RefreshTokensResponse> RefreshTokens(
@@ -71,7 +71,7 @@ public class AuthGrpcController(
     {
         var refreshTokensDto = new RefreshTokensDto(Guid.Parse(request.UserId), request.RefreshToken);
         var refreshTokensResult = await userService.RefreshTokens(refreshTokensDto);
- 
+
         var authTokens = refreshTokensResult.Value;
         var response = new RefreshTokensResponse
         {
