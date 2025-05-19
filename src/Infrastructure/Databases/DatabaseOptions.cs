@@ -1,5 +1,5 @@
-﻿using FluentValidation;
-using Utility.Configuration.Options.Abstractions;
+﻿using BaboonCo.Utility.Configuration.Options.Abstractions;
+using FluentValidation;
 
 namespace Infrastructure.Databases;
 

@@ -1,6 +1,6 @@
-﻿using FluentValidation;
+﻿using BaboonCo.Utility.Configuration.Options.Abstractions;
+using FluentValidation;
 using Microsoft.Extensions.Hosting;
-using Utility.Configuration.Options.Abstractions;
 
 namespace Infrastructure.Features.Security;
 

@@ -2,10 +2,10 @@
 using Application.Features.Users.Login;
 using Application.Features.Users.RefreshTokens;
 using Application.Features.Users.Register;
+using BaboonCo.Utility.Grpc.Server;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
 using IronForge.Contracts.AuthService;
-using Utility.Grpc;
 
 namespace Api.Controllers.GrpcControllers;
 
@@ -37,7 +37,7 @@ public class AuthGrpcController(
             };
         }
 
-        throw GrpcHelper.CreateRpcException(registerResult);
+        throw GrpcServerHelper.CreateRpcException(registerResult);
     }
 
     public override async Task<LoginResponse> Login(
@@ -62,7 +62,7 @@ public class AuthGrpcController(
             };
         }
 
-        throw GrpcHelper.CreateRpcException(loginResult);
+        throw GrpcServerHelper.CreateRpcException(loginResult);
     }
 
     public override async Task<RefreshTokensResponse> RefreshTokens(

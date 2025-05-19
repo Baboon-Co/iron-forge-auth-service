@@ -1,4 +1,5 @@
 ﻿using Application.Features.Users.Abstractions;
+using BaboonCo.Utility.Configuration.Options;
 using Domain;
 using FluentValidation;
 using Infrastructure.Databases;
@@ -8,7 +9,6 @@ using Infrastructure.Features.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Utility.Configuration.Options;
 
 namespace Infrastructure;
 
